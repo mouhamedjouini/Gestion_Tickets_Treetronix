@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { TokenStorageServiceService } from '../services/token-storage-service.service';
+import { LoginResponse } from '../login-response';
 
 @Component({
   selector: 'app-login',
@@ -26,24 +27,29 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
         
   }
-    login(){
-     const user = this.user;
-     this.authService.login(this.user).subscribe({
-      next : data =>{
-        this.token=data.token;
-      console.log("succ"+data)
-          localStorage.setItem('token',this.token);
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-       },
+  login(): void {
+    this.authService.login(this.user).subscribe({
+      next: (data: LoginResponse) => {
+        this.token = data.token; 
+        if (this.token) {
+          localStorage.setItem('token', this.token);
+          this.isLoginFailed = false;
+          this.isLoggedIn = true;
+        
+          this.router.navigate(['/dashboardUser']);
+        } else {
+          this.errorMessage = 'Token is undefined';
+          this.isLoginFailed = true;
+        }
+      },
       error: err => {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       }
     });
   }
+}
   
-  }
   
         
    

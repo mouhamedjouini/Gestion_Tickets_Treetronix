@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { LoginResponse } from '../login-response';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +13,8 @@ export class AuthService {
   register(user:any){
     return this.http.post(this.url+'register',user,{ responseType: 'text' });
   }
-  login(user:any){
-    return this.http.post(this.url+'login',user);
+  login(user:any):Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(this.url+'login',user);
   }
   getrole(id : any){
     return this.http.get(this.url+id)
