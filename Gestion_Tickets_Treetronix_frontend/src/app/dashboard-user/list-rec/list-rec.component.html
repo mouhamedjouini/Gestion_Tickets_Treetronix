@@ -1,0 +1,85 @@
+<div class="col-lg-32 col-md-12 col-12">
+    <div class="main-content">
+        <div class="dashboard-block mt-0">
+            <h3 class="block-title">My Ads</h3>
+            <nav class="list-nav">
+                <ul>
+                    <li class="active"><a href="javascript:void(0)">All Ads <span>42</span></a></li>
+                    <li><a href="javascript:void(0)">Published <span>88</span></a></li>
+                    <li><a href="javascript:void(0)">Featured <span>12</span></a></li>
+                    <li><a href="javascript:void(0)">Sold <span>02</span></a></li>
+                    <li><a href="javascript:void(0)">Active <span>45</span></a></li>
+                    <li><a href="javascript:void(0)">Expired <span>55</span></a></li>
+                </ul>
+            </nav>
+            <!-- Start Items Area -->
+            <div class="my-items">
+                <!-- Start Item List Title -->
+                <div class="item-list-title">
+                    <div class="row align-items-center">
+                        <div class="col-lg-5 col-md-5 col-12">
+                            <p>Job Title</p>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-12">
+                            <p>Category</p>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-12">
+                            <p>Condition</p>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-12 align-right">
+                            <p>Action</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- End List Title -->
+                <!-- Start Single List -->
+                <div class="single-item-list">
+                    <div class="row align-items-center" *ngFor="let reclamation of reclamation">
+                        <div class="col-lg-5 col-md-5 col-12">
+                           
+                                    <a >{{reclamation.name}}</a>
+                                 
+                            
+                        </div>
+                        
+                        <div class="col-lg-2 col-md-2 col-12">
+                            <p>{{reclamation.user.username}}</p>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-12">
+                            <p>{{reclamation.description}}</p>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-12 align-right">
+                            <ul class="action-btn">
+                                <li><a href="javascript:void(0)"><i class="lni lni-pencil"></i></a></li>
+                                <li><a href="javascript:void(0)"><i class="lni lni-eye"></i></a></li>
+                                <li><a href="javascript:void(0)"><i class="lni lni-trash"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single List -->
+                <!-- Start Single List -->
+               
+                <!-- End Single List -->
+                <!-- Start Single List -->
+               
+                <!-- End Single List -->
+                <!-- Start Single List -->
+             
+                <!-- End Single List -->
+                <!-- Pagination -->
+                <div class="pagination left">
+                    <ul class="pagination-list">
+                        <li><a href="javascript:void(0)">1</a></li>
+                        <li class="active"><a href="javascript:void(0)">2</a></li>
+                        <li><a href="javascript:void(0)">3</a></li>
+                        <li><a href="javascript:void(0)">4</a></li>
+                        <li><a href="javascript:void(0)"><i class="lni lni-chevron-right"></i></a></li>
+                    </ul>
+                </div>
+                <!--/ End Pagination -->
+            </div>
+            <!-- End Items Area -->
+        </div>
+    </div>
+</div>
