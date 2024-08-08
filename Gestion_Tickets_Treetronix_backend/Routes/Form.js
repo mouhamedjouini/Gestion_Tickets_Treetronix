@@ -94,5 +94,46 @@ router.post('/ajouter', upload.any('piecejointe') ,async (req, res) => {
       res.send(err);
     }
   );
+  
+});
+router.put('/update/:id/:status', async (req, res) => {
+  try {
+      const formClaimId = req.params.id;
+      const  status  = req.params.status;
+      console.log(status)
+
+      // Validate status
+      if (!['PENDING', 'APPROVED', 'REJECTED', 'RESOLVED'].includes(status)) {
+          return res.status(400).json({ success: false, message: 'Invalid status' });
+      }
+
+      const updatedFormClaim = await Form.findByIdAndUpdate(formClaimId, { status }, { new: true });
+      const form=await Form.findById(formClaimId);
+      // Send email to admin
+      const mailOptions = {
+          from: process.env.ADMIN_EMAIL,
+          to: "hamzamekni4@gmail.com",
+          subject: `Updated the status of you'r form to : ${status}`,
+          text: `
+              The form has been Updated:
+              Name: ${form.name}
+              User: ${form.user}
+              Description: ${form.description}
+              Serie: ${form.Serie}
+              piecejointe: ${form.piecejointe}
+              Status: ${status}
+          `
+      };
+
+       transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+              console.error('Error sending email:', error);
+              return res.status(404).json({ success: false, message: 'Form claim not found' });
+          }
+          res.status(200).json({ success: true, data: updatedFormClaim });
+      });
+  } catch (error) {
+      res.status(400).json({ success: false, message: error.message });
+  }
 });
     module.exports = router;

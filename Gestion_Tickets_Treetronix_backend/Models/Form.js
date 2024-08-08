@@ -4,7 +4,13 @@ const formSchema = new mongoose.Schema({
     name: { type: String, required: true },
     Serie: { type: Number, required: true },
     piecejointe: { type: String },
-    description: { type: String }
+    description: { type: String },
+    typereclamation : { type: String },
+    status: {
+        type: String,
+        enum: ['APPROVED', 'PENDING','REJECTED','RESOLVED'],
+        default: 'PENDING'
+    }
 });
 
 module.exports = mongoose.model('Form', formSchema);

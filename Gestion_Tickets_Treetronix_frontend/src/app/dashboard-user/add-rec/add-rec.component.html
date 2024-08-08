@@ -1,202 +1,93 @@
-<div class="dashboard-block mt-0">
-    <h3 class="block-title">Post Ad</h3>
-    <div class="inner-block">
-        <!-- Start Post Ad Tab -->
-        <div class="post-ad-tab">
-            <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <button class="nav-link active" id="nav-item-info-tab" data-bs-toggle="tab"
-                        data-bs-target="#nav-item-info" type="button" role="tab"
-                        aria-controls="nav-item-info" aria-selected="true">
-                        <span class="serial">01</span>
-                        Step
-                        <span class="sub-title">Ad Information</span>
-                    </button>
-                    <button class="nav-link" id="nav-item-details-tab" data-bs-toggle="tab"
-                        data-bs-target="#nav-item-details" type="button" role="tab"
-                        aria-controls="nav-item-details" aria-selected="false">
-                        <span class="serial">02</span>
-                        Step
-                        <span class="sub-title">Ad Details</span>
-                    </button>
-                   
-                </div>
-            </nav>
-            <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-item-info" role="tabpanel"
-                    aria-labelledby="nav-item-info-tab">
-                    <!-- Start Post Ad Step One Content -->
-                    <div class="step-one-content">
-                        <form class="default-form-style" method="post" action="#">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Add Title*</label>
-                                        <input name="title" type="text"
-                                            placeholder="Enter Title">
-                                    </div>
+
+                <!-- Start Post Ad Block Area -->
+                <div class="dashboard-block mt-0">  
+                    <h3 class="block-title">Ad Room</h3>
+                    <div class="inner-block">
+                        <!-- Start Post Ad Tab -->
+                        <div class="post-ad-tab">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <button class="nav-link" id="nav-item-details-tab" data-bs-toggle="tab"
+                                        data-bs-target="#nav-item-details" type="button" role="tab"
+                                        aria-controls="nav-item-details" aria-selected="false">
+                                        <span class="serial">02</span>
+                                        Step
+                                        <span class="sub-title">Ad Details</span>
+                                    </button>
                                 </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Category*</label>
-                                        <div class="selector-head">
-                                            <span class="arrow"><i
-                                                    class="lni lni-chevron-down"></i></span>
-                                            <select class="user-chosen-select">
-                                                <option value="none">Select a Category</option>
-                                                <option value="none">Mobile Phones</option>
-                                                <option value="none">Electronics</option>
-                                                <option value="none">Computers</option>
-                                                <option value="none">Headphones</option>
-                                                <option value="none">Furnitures</option>
-                                                <option value="none">Books</option>
-                                            </select>
-                                        </div>
+                            </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade" id="nav-item-details" role="tabpanel"
+                                    aria-labelledby="nav-item-details-tab">
+                                    <!-- Start Post Ad Step Two Content -->
+                                    <div class="step-two-content">
+                                        <form class="default-form-style" (submit)="ajouter()">
+                
+                                            <div class="row">
+                                                
+                                              <div class="col-12">
+                                                <div class="form-group">
+                                                  <label>Nom*</label>
+                                                  <input [(ngModel)]="reclamation.name" name="name" type="text" placeholder="Entrez le nom" required>
+                                                </div>
+                                              </div>
+                                              <div class="col-12">
+                                                <div class="form-group">
+                                                  <label>Série*</label>
+                                                  <input [(ngModel)]="reclamation.Serie" name="Serie" type="number" placeholder="Entrez la série" required>
+                                                </div>
+                                              </div>
+                                              
+                                             
+                                              <div class="col-12">
+                                                <div class="form-group">
+                                                  <label>Type de réclamation*</label>
+                                                  <select [(ngModel)]="reclamation.typereclamation" name="typereclamation" required>
+                                                    <option *ngFor="let option of TypeReclamationOptions" [value]="option">{{ option }}</option>
+                                                  </select>
+                                                </div>
+                                              </div>
+                                                <div class="col-lg-6 col-12">
+                                                    <div class="upload-input">
+                                                        <input (change)="selectedimage($event)" type="file" id="upload" name="upload">
+                                                        <label for="upload" class="text-center content">
+                                                            <span class="text">
+                                                                <span class="d-block mb-15">Drop files anywhere
+                                                                    to Upload</span>
+                                                                <span class=" mb-15 plus-icon"><i
+                                                                        class="lni lni-plus"></i></span>
+                                                                <span class="main-btn d-block btn-hover">Select
+                                                                    File</span>
+                                                                <span class="d-block">Maximum upload file size
+                                                                    10Mb</span>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                      <label>Description*</label>
+                                                      <textarea [(ngModel)]="reclamation.description" name="description" rows="4" placeholder="Entrez la description" required></textarea>
+                                                    </div>
+                                                  </div>
+                                             
+                                                <div class="col-12">
+                                                    <div class="form-group button mb-0">
+                                                    
+                                                        <button type="submit" class="btn ">Add Reclamation</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group button mb-0">
-                                        <button type="submit" class="btn ">Next Step</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- Start Post Ad Step One Content -->
-                </div>
-                <div class="tab-pane fade" id="nav-item-details" role="tabpanel"
-                    aria-labelledby="nav-item-details-tab">
-                    <!-- Start Post Ad Step Two Content -->
-                    <div class="step-two-content">
-                        <form class="default-form-style" method="post" action="#">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Add Price*</label>
-                                        <input name="price" type="text"
-                                            placeholder="Enter Price">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Price Type*</label>
-                                        <div class="selector-head">
-                                            <span class="arrow"><i
-                                                    class="lni lni-chevron-down"></i></span>
-                                            <select class="user-chosen-select">
-                                                <option value="none">Select an option</option>
-                                                <option value="none">Fixed</option>
-                                                <option value="none">Price On Call</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Select Currency*</label>
-                                        <div class="selector-head">
-                                            <span class="arrow"><i
-                                                    class="lni lni-chevron-down"></i></span>
-                                            <select class="user-chosen-select">
-                                                <option value="none">Select an option</option>
-                                                <option value="none">Dollar</option>
-                                                <option value="none">Euro</option>
-                                                <option value="none">Rupee</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-12">
-                                    <div class="upload-input">
-                                        <input type="file" id="upload" name="upload">
-                                        <label for="upload" class="text-center content">
-                                            <span class="text">
-                                                <span class="d-block mb-15">Drop files anywhere
-                                                    to Upload</span>
-                                                <span class=" mb-15 plus-icon"><i
-                                                        class="lni lni-plus"></i></span>
-                                                <span class="main-btn d-block btn-hover">Select
-                                                    File</span>
-                                                <span class="d-block">Maximum upload file size
-                                                    10Mb</span>
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-12">
-                                    <div class="form-group">
-                                        <label class="video-label">Video Link* <span>Input only
-                                                YouTube & Vimeo</span></label>
-                                        <input name="video" type="text"
-                                            placeholder="Input link">
-                                        <a href="javascript:void(0)" class="add-video"><i
-                                                class="lni lni-plus"></i> Add Video</a>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group mt-30">
-                                        <label>Ad Description*</label>
-                                        <textarea name="message"
-                                            placeholder="Input ad description"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-12">
-                                    <div class="form-group">
-                                        <label>Type of Ad*</label>
-                                        <div class="selector-head">
-                                            <span class="arrow"><i
-                                                    class="lni lni-chevron-down"></i></span>
-                                            <select class="user-chosen-select">
-                                                <option value="none">Select an option</option>
-                                                <option value="none">Option 1</option>
-                                                <option value="none">Option 2</option>
-                                                <option value="none">Option 3</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-12">
-                                    <div class="form-group">
-                                        <label>Item Condition*</label>
-                                        <div class="selector-head">
-                                            <span class="arrow"><i
-                                                    class="lni lni-chevron-down"></i></span>
-                                            <select class="user-chosen-select">
-                                                <option value="none">Select an option</option>
-                                                <option value="none">Used</option>
-                                                <option value="none">Brand New</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label class="tag-label">Tags* <span>Comma(,)
-                                                separated</span></label>
-                                        <input name="tag" type="text"
-                                            placeholder="Type Product tag">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group button mb-0">
-                                        <button type="submit"
-                                            class="btn alt-btn">Previous</button>
-                                        <button type="submit" class="btn ">Next Step</button>
-                                    </div>
+                                    <!-- Start Post Ad Step Two Content -->
                                 </div>
                             </div>
-                        </form>
+                        </div>
+                        <!-- End Post Ad Tab -->
                     </div>
-                    <!-- Start Post Ad Step Two Content -->
                 </div>
-                <div class="tab-pane fade" id="nav-user-info" role="tabpanel"
-                    aria-labelledby="nav-user-info-tab">
-                    <!-- Start Post Ad Step Three Content -->
-                  
-                    <!-- Start Post Ad Step Three Content -->
-                </div>
-            </div>
-        </div>
-        <!-- End Post Ad Tab -->
-    </div>
-</div>
+                <!-- End Post Ad Block Area -->
+   
+
+  

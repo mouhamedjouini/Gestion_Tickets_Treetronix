@@ -1,15 +1,15 @@
-<div class="col-lg-32 col-md-12 col-12">
+<div class="container">
     <div class="main-content">
-        <div class="dashboard-block mt-0">
-            <h3 class="block-title">My Ads</h3>
+        <div class="dashboard-block mt-1">
+            <h3 class="block-title">Mes Annonces</h3>
             <nav class="list-nav">
                 <ul>
-                    <li class="active"><a href="javascript:void(0)">All Ads <span>42</span></a></li>
-                    <li><a href="javascript:void(0)">Published <span>88</span></a></li>
-                    <li><a href="javascript:void(0)">Featured <span>12</span></a></li>
-                    <li><a href="javascript:void(0)">Sold <span>02</span></a></li>
-                    <li><a href="javascript:void(0)">Active <span>45</span></a></li>
-                    <li><a href="javascript:void(0)">Expired <span>55</span></a></li>
+                    <li class="active"><a href="javascript:void(0)">Toutes les annonces <span>42</span></a></li>
+                    <li><a href="javascript:void(0)">Publiées <span>88</span></a></li>
+                    <li><a href="javascript:void(0)">En vedette <span>12</span></a></li>
+                    <li><a href="javascript:void(0)">Vendues <span>02</span></a></li>
+                    <li><a href="javascript:void(0)">Actives <span>45</span></a></li>
+                    <li><a href="javascript:void(0)">Expirées <span>55</span></a></li>
                 </ul>
             </nav>
             <!-- Start Items Area -->
@@ -17,55 +17,69 @@
                 <!-- Start Item List Title -->
                 <div class="item-list-title">
                     <div class="row align-items-center">
-                        <div class="col-lg-5 col-md-5 col-12">
-                            <p>Job Title</p>
+                        
+                        <div class="col-lg-1 col-md-1 col-12">
+                            <p>Nom</p>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-12">
+                            <p>Utilisateur</p>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-12">
+                            <p>Série</p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
-                            <p>Category</p>
+                            <p>Description</p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
-                            <p>Condition</p>
+                            <p>Type de Réclamation</p>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-12 align-right">
+                        <div class="col-lg-1 col-md-1 col-12">
+                            <p>Statut</p>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-12">
+                            <p>Pièce Jointe</p>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-12 align-right">
                             <p>Action</p>
                         </div>
                     </div>
                 </div>
                 <!-- End List Title -->
                 <!-- Start Single List -->
-                <div class="single-item-list">
-                    <div class="row align-items-center" *ngFor="let reclamation of reclamation">
-                        <div class="col-lg-5 col-md-5 col-12">
-                           
-                                    <a >{{reclamation.name}}</a>
-                                 
-                            
+                <div class="single-item-list" *ngFor="let reclamation of reclamations">
+                    <div class="row align-items-center">
+                       
+                        <div class="col-lg-1 col-md-1 col-12">
+                            <p>{{reclamation.name}}</p>
                         </div>
-                        
-                        <div class="col-lg-2 col-md-2 col-12">
+                        <div class="col-lg-1 col-md-1 col-12">
                             <p>{{reclamation.user.username}}</p>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-12">
+                            <p>{{reclamation.Serie}}</p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
                             <p>{{reclamation.description}}</p>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-12 align-right">
+                        <div class="col-lg-2 col-md-2 col-12">
+                            <p>{{reclamation.typereclamation}}</p>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-12">
+                            <p>{{reclamation.status}}</p>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-12">
+                            <a ><img [src]="url + 'getimage/' + reclamation.piecejointe" ></a>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-12 align-right">
                             <ul class="action-btn">
                                 <li><a href="javascript:void(0)"><i class="lni lni-pencil"></i></a></li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-eye"></i></a></li>
+                                <li><a href="javascript:void(0)"><i [routerLink]="['/dashboardUser/details-rec' , reclamation._id ]" class="lni lni-eye"></i></a></li>
                                 <li><a href="javascript:void(0)"><i class="lni lni-trash"></i></a></li>
+                                
                             </ul>
                         </div>
                     </div>
                 </div>
-                <!-- End Single List -->
-                <!-- Start Single List -->
-               
-                <!-- End Single List -->
-                <!-- Start Single List -->
-               
-                <!-- End Single List -->
-                <!-- Start Single List -->
-             
                 <!-- End Single List -->
                 <!-- Pagination -->
                 <div class="pagination left">

@@ -13,7 +13,7 @@ export class ReclamationService {
   public  headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`);
   ajouter( reclamation: any){
     console.log(reclamation)
-    return this.http.post(this.url +'/add',reclamation)
+    return this.http.post(this.url +'/ajouter',reclamation)
   }
   getall():Observable<any>{
     return this.http.get<any>(this.url +'/all')
