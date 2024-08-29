@@ -6,20 +6,19 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ReclamationService {
+export class DetailsrecService {
 
   constructor(private http : HttpClient,private router:Router) { }
-  private  url = 'http://localhost:5000/form';
+  private  url = 'http://localhost:5000/comm';
   public  headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`);
-  ajouter( reclamation: any){
-    console.log(reclamation)
-    return this.http.post(this.url +'/ajouter',reclamation)
+  ajouter( comm: any){
+    console.log(comm)
+    return this.http.post(this.url +'/ajouter',comm)
   }
   getall():Observable<any>{
-    return this.http.get<any>(this.url +'/all')
+    return this.http.get<any>(this.url +'/getall')
   }
-  formbyid(id:any){
-    return this.http.get(this.url+'/getbyid/'+id,{ headers: this.headers })
+  commbyid(id:any){
+    return this.http.get(this.url+'/getcommbyidform/'+id,{ headers: this.headers })
   }
-  
 }

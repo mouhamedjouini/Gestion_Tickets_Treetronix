@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const authRoutes  = require('./Routes/auth');
 const formRoutes  = require('./Routes/Form');
+const commRoutes  = require('./Routes/Comm');
 dotenv.config();
 //require('dotenv').config();
 const MONGODB_URI = process.env.MONGODB_URI
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(cors());
 app.use('/auth',authRoutes)
 app.use('/form',formRoutes)
+app.use('/comm',commRoutes)
 app.use('/getimage',express.static('./upload'))
 mongoose.connect(MONGODB_URI).then(()=>{
     console.log('connected to MongoDb');

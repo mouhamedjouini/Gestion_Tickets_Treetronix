@@ -6,6 +6,7 @@ const formSchema = new mongoose.Schema({
     piecejointe: { type: String },
     description: { type: String },
     typereclamation : { type: String },
+    Date: { type: Date, required: false },
     status: {
         type: String,
         enum: ['APPROVED', 'PENDING','REJECTED','RESOLVED'],

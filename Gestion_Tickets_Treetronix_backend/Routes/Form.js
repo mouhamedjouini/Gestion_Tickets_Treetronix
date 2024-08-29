@@ -29,7 +29,7 @@ const transporter = nodemailer.createTransport({
   secure: true, 
   auth: {
     user: "mouhadje@gmail.com",
-    pass: "nlgz smqk uewp jkxr",
+    pass: "yfeo xzwn bckt kujc",
   },
 });
 router.get('/getbyiduser/:userId', (req, res) => {
@@ -45,6 +45,17 @@ router.get('/getbyiduser/:userId', (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
       });
+  });
+  router.get('/getbyid/:id',(req,res)=>{
+    let id = req.params.id;
+    Form.findById({_id:id}).then(
+        (data)=>{
+            res.send(data);
+    
+        },
+        (err)=>{
+        res.send(err)
+    });
   });
 router.post('/ajouter', upload.any('piecejointe') ,async (req, res) => {
     try {
@@ -135,5 +146,16 @@ router.put('/update/:id/:status', async (req, res) => {
   } catch (error) {
       res.status(400).json({ success: false, message: error.message });
   }
+});
+router.get('/getbyid/:id',(req,res)=>{
+  let id = req.params.id;
+  Form.findById({_id:id}).then(
+      (data)=>{
+          res.send(data);
+  
+      },
+      (err)=>{
+      res.send(err)
+  });
 });
     module.exports = router;
