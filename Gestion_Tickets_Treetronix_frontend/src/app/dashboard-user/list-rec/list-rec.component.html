@@ -2,16 +2,25 @@
     <div class="main-content">
         <div class="dashboard-block mt-1">
             <h3 class="block-title">Mes Annonces</h3>
-            <nav class="list-nav">
+              <nav class="list-nav">
                 <ul>
-                    <li class="active"><a href="javascript:void(0)">Toutes les annonces <span>42</span></a></li>
-                    <li><a href="javascript:void(0)">Publiées <span>88</span></a></li>
-                    <li><a href="javascript:void(0)">En vedette <span>12</span></a></li>
-                    <li><a href="javascript:void(0)">Vendues <span>02</span></a></li>
-                    <li><a href="javascript:void(0)">Actives <span>45</span></a></li>
-                    <li><a href="javascript:void(0)">Expirées <span>55</span></a></li>
+                  <li [ngClass]="{ 'active': selectedStatus === 'ALL' }">
+                    <a href="javascript:void(0)" (click)="filterByStatus('ALL')">ALL <span> {{ reclamations.length }}</span></a>
+                  </li>
+                  <li [ngClass]="{ 'active': selectedStatus === 'APPROVED' }">
+                    <a href="javascript:void(0)" (click)="filterByStatus('APPROVED')">APPROVED <span> {{ approvedCount }}</span></a>
+                  </li>
+                  <li [ngClass]="{ 'active': selectedStatus === 'PENDING' }">
+                    <a href="javascript:void(0)" (click)="filterByStatus('PENDING')">PENDING <span>{{ pendingCount }}</span></a>
+                  </li>
+                  <li [ngClass]="{ 'active': selectedStatus === 'REJECTED' }">
+                    <a href="javascript:void(0)" (click)="filterByStatus('REJECTED')">REJECTED <span>{{ rejectedCount }}</span></a>
+                  </li>
+                  <li [ngClass]="{ 'active': selectedStatus === 'RESOLVED' }">
+                    <a href="javascript:void(0)" (click)="filterByStatus('RESOLVED')">RESOLVED <span>{{ resolvedCount }}</span></a>
+                  </li>
                 </ul>
-            </nav>
+              </nav>
             <!-- Start Items Area -->
             <div class="my-items">
                 <!-- Start Item List Title -->
@@ -33,7 +42,7 @@
                         <div class="col-lg-2 col-md-2 col-12">
                             <p>Type de Réclamation</p>
                         </div>
-                        <div class="col-lg-1 col-md-1 col-12">
+                        <div class="col-lg-1 col-md-1 col-12 mr-5">
                             <p>Statut</p>
                         </div>
                         <div class="col-lg-1 col-md-1 col-12">
@@ -46,7 +55,7 @@
                 </div>
                 <!-- End List Title -->
                 <!-- Start Single List -->
-                <div class="single-item-list" *ngFor="let reclamation of reclamations">
+                <div class="single-item-list" *ngFor="let reclamation of filteredReclamations">
                     <div class="row align-items-center">
                        
                         <div class="col-lg-1 col-md-1 col-12">
@@ -64,12 +73,18 @@
                         <div class="col-lg-2 col-md-2 col-12">
                             <p>{{reclamation.typereclamation}}</p>
                         </div>
-                        <div class="col-lg-1 col-md-1 col-12">
-                            <p>{{reclamation.status}}</p>
+                        <div class="col-lg-1 col-md-2 col-12 mr-5">
+                            <p class="btn btn-rounded text-dark" [ngClass]="getStatusClass(reclamation.status)">
+                                {{reclamation.status}}
+                            </p>
                         </div>
+                        
                         <div class="col-lg-1 col-md-1 col-12">
-                            <a ><img [src]="url + 'getimage/' + reclamation.piecejointe" ></a>
+                            <a [href]="'http://localhost:5000/getimage/' + reclamation.piecejointe" target="_blank">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                            </a> 
                         </div>
+                        
                         <div class="col-lg-2 col-md-2 col-12 align-right">
                             <ul class="action-btn">
                                 <li><a href="javascript:void(0)"><i class="lni lni-pencil"></i></a></li>

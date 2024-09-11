@@ -1,0 +1,7 @@
+.btn-rounded {
+    border-radius: 12px; /* Angles arrondis */
+    padding: 5px 15px;   /* Taille du bouton */
+    text-transform: uppercase; /* Texte en majuscules */
+    font-weight: bold;
+    font-size: 12px;
+}

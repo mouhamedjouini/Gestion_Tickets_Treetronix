@@ -1,0 +1,18 @@
+    .me-1 {
+        margin-right: 8px; /* Ajuste l'espacement à droite de l'icône */
+    }
+    .icon-container {
+        display: flex; /* Utiliser flexbox pour aligner les icônes horizontalement */
+        align-items: center; /* Aligner verticalement au centre */
+        gap: 10px; /* Espacement entre les icônes */
+    }
+
+    .icon {
+        font-size: 24px; /* Taille des icônes */
+        color: #333; /* Couleur des icônes */
+        cursor: pointer; /* Curseur en forme de main pour les icônes cliquables */
+    }
+
+    .icon:hover {
+        color: #007bff; /* Changer la couleur des icônes au survol */
+    }

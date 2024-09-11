@@ -48,7 +48,7 @@ router.get('/getbyiduser/:userId', (req, res) => {
   });
   router.get('/getbyid/:id',(req,res)=>{
     let id = req.params.id;
-    Form.findById({_id:id}).then(
+    Form.findById({_id:id}).populate(['user']).then(
         (data)=>{
             res.send(data);
     
@@ -107,7 +107,7 @@ router.post('/ajouter', upload.any('piecejointe') ,async (req, res) => {
   );
   
 });
-router.put('/update/:id/:status', async (req, res) => {
+router.patch('/update/:id/:status', async (req, res) => {
   try {
       const formClaimId = req.params.id;
       const  status  = req.params.status;
@@ -147,15 +147,9 @@ router.put('/update/:id/:status', async (req, res) => {
       res.status(400).json({ success: false, message: error.message });
   }
 });
-router.get('/getbyid/:id',(req,res)=>{
-  let id = req.params.id;
-  Form.findById({_id:id}).then(
-      (data)=>{
-          res.send(data);
-  
-      },
-      (err)=>{
-      res.send(err)
-  });
-});
+
+
+
+
+
     module.exports = router;

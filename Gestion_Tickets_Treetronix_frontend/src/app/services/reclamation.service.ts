@@ -15,6 +15,10 @@ export class ReclamationService {
     console.log(reclamation)
     return this.http.post(this.url +'/ajouter',reclamation)
   }
+  updatestatus( reclamationId: any,newStatus:any){
+   
+    return this.http.patch(`${this.url}/update/${reclamationId}/${newStatus}`, {})
+  }
   getall():Observable<any>{
     return this.http.get<any>(this.url +'/all')
   }

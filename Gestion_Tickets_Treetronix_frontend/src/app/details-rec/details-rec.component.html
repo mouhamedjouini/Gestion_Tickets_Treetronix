@@ -1,66 +1,110 @@
-<div style="display: flex; justify-content: space-between; margin: 32px 24px;">
-  <h2>Les Questions :</h2>
-  <img src="https://lycee.stemariebeaucamps.fr/sites/default/files/2022-12/forum.jpeg" alt="Image de forum" class="rounded-circle img-thumbnail" width="200">
+<div class="d-flex justify-content-between align-items-center mb-4 px-3 py-2 bg-light rounded">
+  <h2 class="m-0">Les Questions :</h2>
+  <img src="https://lycee.stemariebeaucamps.fr/sites/default/files/2022-12/forum.jpeg" alt="Image de forum" class="rounded-circle img-thumbnail shadow-sm" width="120">
 </div>
 
-<div class="containers mt-5">
-  <div class="card">
-    <div class="card-body pb-1">
-      <!-- Affichage de la question -->
-      <div class="d-flex">
-        <img class="me-2 rounded" src="https://via.placeholder.com/32" alt="Image de l'utilisateur" height="32">
-
-        <div class="w-100">
-          <div class="dropdown float-end text-muted">
-            <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="mdi mdi-dots-horizontal"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end">
-              <a href="#" class="dropdown-item">Supprimer</a>
-            </div>
-          </div>
-          <h5 class="m-0">{{ form.user.name }}</h5> <!-- Nom de l'utilisateur qui a posé la question -->
+<div class="container mt-5">
+  <!-- Affichage de la question -->
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <!-- En-tête de la question -->
+      <div class="d-flex align-items-center mb-3">
+        <img class="me-3 rounded-circle shadow-sm" src="https://via.placeholder.com/40" alt="Image de l'utilisateur" height="40">
+        <div class="flex-grow-1">
+          <h5 class="mb-0">{{ form.user.username }}</h5> <!-- Nom de l'utilisateur qui a posé la question -->
+          <small class="text-muted">Posté le {{ form.Date | date:'dd MMMM yyyy' }}</small> <!-- Date de la question -->
+        </div>
+        <div class="mb-3">
+          <h6 class="fw-bold">Statut actuel : {{ form.status }}</h6>
+          <!-- Menu déroulant pour changer le statut -->
+          <select class="form-select" [(ngModel)]="form.status" (change)="updateStatus(form._id, form.status)">
+            <option value="APPROVED">Approuvée</option>
+            <option value="PENDING">En attente</option>
+            <option value="REJECTED">Rejetée</option>
+            <option value="RESOLVED">Résolue</option>
+          </select>
+        </div>
+        <div class="dropdown">
+          <a href="#" class="text-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="mdi mdi-dots-horizontal"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item text-danger" href="#">Supprimer</a></li>
+          </ul>
         </div>
       </div>
 
-      <hr class="m-0" />
-
-      <div class="font-16 text-dark my-3">
-        <strong>{{ form.name }}</strong> <!-- Nom du formulaire/question -->
-        <br>
-        {{ form.description }} <!-- Description de la question -->
-        <br>
-        <small>Type de réclamation : {{ form.typereclamation }}</small>
-        <br>
-        <small>Date : {{ form.Date | date:'dd MMMM yyyy' }}</small> <!-- Date de la question -->
-        <br>
-        <small>Status : {{ form.status }}</small> <!-- Statut de la question -->
+      <!-- Corps de la question -->
+      <div class="border-top pt-3">
+        <div class="mb-3">
+          <h6 class="fw-bold">{{ form.name }}</h6> <!-- Nom de la question -->
+          <p class="mb-1">{{ form.description }}</p> <!-- Description de la question -->
+          <small class="d-block text-muted">Type de réclamation : {{ form.typereclamation }}</small>
+          <small class="d-block text-muted">Statut : {{ form.status }}</small> <!-- Statut de la question -->
+        </div>
+        <div *ngIf="form.piecejointe && form.piecejointe.length > 0" class="mt-2">
+          <small class="text-muted">Pièces jointes :</small>
+          <ul class="list-unstyled mb-0">
+            <!-- Boucle pour afficher chaque pièce jointe de la question -->
+           
+              <i class="fas fa-paperclip me-1"></i> 
+              <a [href]="'http://localhost:5000/getimage/' + form.piecejointe" target="_blank">{{ form.piecejointe }}</a> <!-- Lien vers la pièce jointe -->
+      
+          </ul>
+          <br> 
+        </div>
       </div>
 
-      <hr class="m-0" />
-
       <!-- Bouton pour afficher le nombre de réponses -->
-      <div class="my-1">
-        <a href="javascript: void(0);" class="btn btn-sm btn-link text-muted">
-          <i class='uil uil-comments-alt'></i> {{ comms.length }} réponses <!-- Nombre de réponses -->
+      <div class="border-top py-2">
+        <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary d-flex align-items-center">
+          <i class="uil uil-comments-alt me-1"></i> {{ commst.length }} réponses <!-- Nombre de réponses -->
         </a>
       </div>
 
-      <hr class="m-0" />
-
       <!-- Affichage des réponses -->
-      <div class="mt-3">
-        <div *ngFor="let reponse of comms" class="d-flex"> <!-- Boucle pour afficher chaque réponse -->
-          <img class="me-2 rounded" src="https://via.placeholder.com/32" alt="Image de l'utilisateur" height="32">
-
-          <div>
-            <h5 class="m-0">{{ reponse.user.name }}</h5> <!-- Nom de l'utilisateur qui a répondu -->
-            <p class="text-muted mb-0"><small>{{ reponse.Date | date:'dd MMMM yyyy' }}</small></p> <!-- Date de la réponse -->
-            <p class="my-1">{{ reponse.description }}</p> <!-- Description de la réponse -->
+      <div class="border-top pt-3">
+        <!-- Boucle pour afficher chaque réponse associée à la question -->
+        <div *ngFor="let reponse of commst" class="d-flex align-items-start mb-3">
+          <img class="me-3 rounded-circle shadow-sm" src="https://via.placeholder.com/32" alt="Image de l'utilisateur" height="32">
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between align-items-center">
+              <h6 class="m-0">{{ reponse.user.username }}</h6> <!-- Nom de l'utilisateur qui a répondu -->
+              <small class="text-muted">{{ reponse.Date | date:'dd MMMM yyyy' }}</small> <!-- Date de la réponse -->
+            </div>
+            <p class="mb-1">{{ reponse.description }}</p> <!-- Description de la réponse -->
+            
+            <!-- Affichage des pièces jointes -->
+            <div *ngIf="reponse.piecejointe && reponse.piecejointe.length > 0" class="mt-2">
+              <small class="text-muted">Pièces jointes :</small>
+              <ul class="list-unstyled mb-0">
+           
+                  <i class="fas fa-paperclip me-1"></i> 
+                   <a [href]="'http://localhost:5000/getimage/' + reponse.piecejointe" target="_blank">{{ reponse.piecejointe }}</a> <!-- Lien vers la pièce jointe -->
+        
+              </ul>
+                    
+            </div>
           </div>
         </div>
-      
       </div>
+
+      <!-- Ajouter un champ pour écrire une nouvelle réponse -->
+      <div class="border-top pt-3">
+        <div class="d-flex">
+          <!-- Champ de texte pour ajouter une réponse -->
+          <input type="text" [(ngModel)]="comms.description" class="form-control form-control-sm me-2 shadow-sm" placeholder="Écrire un commentaire">
+          <!-- Bouton pour envoyer la réponse -->
+          <!-- end w-100 -->
+          <div class="icon-container">
+            <div class="upload-input" onclick="document.getElementById('upload').click()">
+              <i class="fas fa-paperclip icon"></i>
+              <input (change)="selectedimage($event)" type="file" id="upload" name="upload" style="display: none;">
+            </div>
+            <!-- Icône pour soumettre la réponse -->
+            <i class='uil uil-message icon' (click)="ajouter(form._id)"></i>
+        </div>
+        </div> <!-- end d-flex -->
+      </div> <!-- end mt-3 -->
+
     </div>
-  </div>
-</div>
