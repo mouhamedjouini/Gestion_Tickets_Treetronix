@@ -4,9 +4,11 @@ const bodyParser = require('body-parser');
 const authenticate = require('../middelwares/authenticate')
 const User = require('../Models/User');
 const Comm = require('../Models/Comm');
+const form = require('../Models/Form');
 const res = require('express/lib/response');
 const nodemailer = require('nodemailer');
 const multer = require('multer');
+const Form = require('../Models/Form');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 filename = '';
@@ -46,15 +48,9 @@ router.post('/ajouter', upload.any('piecejointe') ,async (req, res) => {
       comm.piecejointe=filename;
       const data = await comm.save();
       await sendEmailNotification(data, req.files[0]);
-  
-      // Sauvegarder le commentaire
-      
+
   console.log(data)
-      // Envoyer la notification par e-mail
-     
-     // await sendEmailNotification(data, req.files[0]);
   
-      // Répondre avec les données sauvegardées
       res.send(data);
   
     } catch (err) {
@@ -64,32 +60,39 @@ router.post('/ajouter', upload.any('piecejointe') ,async (req, res) => {
   });
   
   async function sendEmailNotification(comm, file) {
-    console.log("cvv"+this.comm)
     try {
-     console.log(comm)
-      const user = await User.findById(comm.user);
-  console.log(user)
-    const userEmail = user.email;
-    
-      const info = await transporter.sendMail({
-        from: '<mouhadje@gmail.com>',
-        to: userEmail,
-        subject: "Confirmation de réservation",
-        html: `
-          <p>Bonjour,</p>
-          <p>Votre réservation a été enregistrée avec succès.</p>
-        `,attachments: file ? [{
-          filename: file.originalname,
-          path: file.path
-        }] : []
-      });
-  
-      console.log("Message envoyé: %s", info.messageId);
+        const user = await User.findById(comm.user);
+        const userEmail = user.email;
+        const form = await Form.findById(comm.form);
+        const status = form.status;
+
+        const info = await transporter.sendMail({
+            from: '<mouhadje@gmail.com>',
+            to: userEmail,
+            subject: "Suivi de votre réclamation",
+            html: `
+                <p>Bonjour ${user.username},</p>
+                <p>Nous vous informons que votre réclamation est ${status}. Voici les détails :</p>
+                <ul>
+                    <li><strong>Description de la suivi de réclamation :</strong> ${comm.description}</li>
+                    <li><strongDate de soumission :</strong> ${comm.Date ? comm.Date.toLocaleDateString() : 'Non spécifiée'}</li>
+                </ul>
+                <p>Nous vous tiendrons informé de toute évolution concernant votre réclamation.</p>
+                <p>Merci de votre patience.</p>
+            `,
+            attachments: file ? [{
+                filename: file.originalname,
+                path: file.path
+            }] : []
+        });
+
+        console.log("Message envoyé: %s", info.messageId);
     } catch (error) {
-      console.error("Erreur lors de l'envoi de la notification par e-mail :", error);
-      throw error; // Relancer l'erreur pour la gérer dans le bloc try...catch de l'appelant
+        console.error("Erreur lors de l'envoi de la notification par e-mail :", error);
+        throw error; // Relancer l'erreur pour la gérer dans le bloc try...catch de l'appelant
     }
-  }
+}
+
   
 router.get('/getall',(req,res)=>{
     Comm.find().populate(['user','form']).then(

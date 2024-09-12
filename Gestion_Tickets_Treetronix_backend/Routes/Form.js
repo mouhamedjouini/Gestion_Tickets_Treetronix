@@ -82,7 +82,7 @@ router.post('/ajouter', upload.any('piecejointe') ,async (req, res) => {
       html: `
         <p>Bonjour,</p>
         <p>Veuillez Consulter votre Reclamation :</p>
-        <p><strong>User :</strong> ${data.user}</p>
+        <p><strong>User :</strong> ${user.username}</p>
         <p><strong>Name :</strong> ${data.name}</p>
         <p><strong>Serie :</strong> ${data.Serie}</p>
         <p><strong>Description :</strong> ${data.description}</p>
@@ -108,10 +108,13 @@ router.post('/ajouter', upload.any('piecejointe') ,async (req, res) => {
   
 });
 router.patch('/update/:id/:status', async (req, res) => {
+  const  userr  = req.params.user;
+  console.log("ffff"+userr)
   try {
+  
       const formClaimId = req.params.id;
       const  status  = req.params.status;
-      console.log(status)
+    
 
       // Validate status
       if (!['PENDING', 'APPROVED', 'REJECTED', 'RESOLVED'].includes(status)) {
@@ -120,19 +123,30 @@ router.patch('/update/:id/:status', async (req, res) => {
 
       const updatedFormClaim = await Form.findByIdAndUpdate(formClaimId, { status }, { new: true });
       const form=await Form.findById(formClaimId);
+
+      console.log("gbhhh"+form.user)
       // Send email to admin
+      const user = await User.findById(form.user);
+      const userEmail = user.email;
       const mailOptions = {
           from: process.env.ADMIN_EMAIL,
-          to: "hamzamekni4@gmail.com",
-          subject: `Updated the status of you'r form to : ${status}`,
+          to: userEmail,
+          subject: `Mise à jour du statut de votre réclamation : ${status}`,
           text: `
-              The form has been Updated:
-              Name: ${form.name}
-              User: ${form.user}
-              Description: ${form.description}
-              Serie: ${form.Serie}
-              piecejointe: ${form.piecejointe}
-              Status: ${status}
+              Bonjour,
+      
+              Nous vous informons que le statut de votre réclamation a été mis à jour. Voici les détails de votre réclamation :
+      
+              - Nom de la réclamation : ${form.name}
+              - Soumis par : ${form.user}
+              - Description : ${form.description}
+              - Référence de la série : ${form.Serie}
+              - Statut actuel : ${status}
+      
+              Nous restons à votre disposition pour toute information complémentaire.
+      
+              Cordialement,
+              L'équipe de gestion des réclamations
           `
       };
 

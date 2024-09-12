@@ -31,6 +31,7 @@ export class AddRecComponent implements OnInit {
     "description": "",
     "piecejointe": "",
     "user": "",
+    "Date":"",
   "typereclamation": TypeReclamation.SAV
 
   }
@@ -66,6 +67,7 @@ ajouter() {
   formData.append('user', this.reclamation.user);
   formData.append('name', this.reclamation.name);
   formData.append('Serie', this.reclamation.Serie);
+  formData.append('Date', this.getcurrentdate());
   formData.append('description', this.reclamation.description);
   formData.append('piecejointe', this.image);
   formData.append('typereclamation', this.reclamation.typereclamation.toString());
@@ -90,7 +92,9 @@ console.log(formData)
     }
   );
 }
-
+getcurrentdate() {
+  return new Date().toISOString(); 
+}
 selectedImage(event: any) {
   this.image = event.target.files[0];
   console.log(event.target.files[0]);

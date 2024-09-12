@@ -18,12 +18,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DetailsRecComponent implements OnInit {
   public url = 'http://localhost:5000';
-  id: any; // ID de la réclamation
-  commst: any; // Liste des commentaires
-  image: any; // Image ajoutée dans la réclamation
-  currentuser: any; // Utilisateur actuellement connecté
-  form: any; // Formulaire de la réclamation
-
+  id: any; 
+  commst: any; 
+  image: any; 
+  currentuser: any; 
+  form: any; 
   comms = {
     form: "",
     description: "",
@@ -104,12 +103,12 @@ export class DetailsRecComponent implements OnInit {
     });
   }
 
-  // Récupérer la date actuelle
+
   getcurrentdate() {
-    return new Date().toISOString(); // Récupérer la date actuelle au format ISO
+    return new Date().toISOString(); 
   }
 
-  // Ajouter un commentaire à la réclamation
+
   ajouter(idf: any) {
     console.log(idf);
     const user2 = this.storageService.getUserData();
@@ -131,7 +130,7 @@ export class DetailsRecComponent implements OnInit {
           text: "Votre réclamation a été ajoutée avec succès.",
           icon: "success"
         });
-        this.router.navigate(['dashboardUser']);
+       this.ngOnInit()
       },
       (err) => {
         console.log('Erreur lors de l\'ajout de la réclamation:', err);
