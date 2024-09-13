@@ -7,7 +7,7 @@
                     <form (ngSubmit)="login()" #loginForm="ngForm" novalidate>
                         <!-- Nom d'utilisateur ou email -->
                         <div class="form-group">
-                            <label>Nom d'utilisateur ou email</label>
+                            <label>Nom d'utilisateur</label>
                             <input
                                 [(ngModel)]="user.username"
                                 name="username"
@@ -18,7 +18,7 @@
                                 class="form-control"
                             />
                             <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger">
-                                <small *ngIf="username.errors?.['required']">Le nom d'utilisateur ou email est requis.</small>
+                                <small *ngIf="username.errors?.['required']">Le nom d'utilisateur est requis.</small>
                                 <small *ngIf="username.errors?.['minlength']">Le nom d'utilisateur ou email doit comporter au moins 3 caractères.</small>
                             </div>
                         </div>
