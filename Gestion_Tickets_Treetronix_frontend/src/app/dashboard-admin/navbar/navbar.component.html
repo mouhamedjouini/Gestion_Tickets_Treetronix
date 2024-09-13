@@ -20,24 +20,19 @@
                         </button>
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                             <ul id="nav" class="navbar-nav ms-auto">
+                               
                                 <li class="nav-item">
-                                    <a routerLink="/dashboard/listusers"  aria-label="Toggle navigation">User</a>
-                                    
-                                </li>
-                                <li class="nav-item">
-                                    <a  routerLink="/dashboard/listroom" aria-label="Toggle navigation">MeetingRoom</a>
+                                    <a  routerLink="/dashboardAdmin/List-Reclamation" aria-label="Toggle navigation">MeetingRoom</a>
                                 </li>
                                 
                             </ul>
                         </div> <!-- navbar collapse -->
                         <div class="login-button">
                             <ul>
-                                <li class="nav-item">
-                                    <a routerLink ="/dashboard/add-room">Ad Room</a>
-                                </li>
+                                
 
                                 <li>
-                                    <a><i class="lni lni-enter" ></i> LogOut</a>
+                                    <a><i class="lni lni-enter"  (click)="logout()" ></i> LogOut</a>
                                                                  
                                 </li> 
                             </ul>

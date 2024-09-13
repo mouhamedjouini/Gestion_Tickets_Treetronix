@@ -1,93 +1,128 @@
+<!-- Start Post Ad Block Area -->
+<div class="dashboard-block mt-0">
+  <h3 class="block-title">Ad Room</h3>
+  <div class="inner-block">
+      <!-- Start Post Ad Tab -->
+      <div class="post-ad-tab">
+          <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <button class="nav-link" id="nav-item-details-tab" data-bs-toggle="tab" data-bs-target="#nav-item-details" type="button" role="tab" aria-controls="nav-item-details" aria-selected="false">
+                      <span class="serial">01</span>
+                      Claim
+                      <span class="sub-title">Ad Details</span>
+                  </button>
+              </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade" id="nav-item-details" role="tabpanel" aria-labelledby="nav-item-details-tab">
+                  <!-- Start Post Ad Step Two Content -->
+                  <div class="step-two-content">
+                      <form class="default-form-style" (ngSubmit)="ajouter()" #reclamationForm="ngForm" novalidate>
+                          <div class="row">
 
-                <!-- Start Post Ad Block Area -->
-                <div class="dashboard-block mt-0">  
-                    <h3 class="block-title">Ad Room</h3>
-                    <div class="inner-block">
-                        <!-- Start Post Ad Tab -->
-                        <div class="post-ad-tab">
-                            <nav>
-                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                    <button class="nav-link" id="nav-item-details-tab" data-bs-toggle="tab"
-                                        data-bs-target="#nav-item-details" type="button" role="tab"
-                                        aria-controls="nav-item-details" aria-selected="false">
-                                        <span class="serial">02</span>
-                                        Step
-                                        <span class="sub-title">Ad Details</span>
-                                    </button>
-                                </div>
-                            </nav>
-                            <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade" id="nav-item-details" role="tabpanel"
-                                    aria-labelledby="nav-item-details-tab">
-                                    <!-- Start Post Ad Step Two Content -->
-                                    <div class="step-two-content">
-                                        <form class="default-form-style" (submit)="ajouter()">
-                
-                                            <div class="row">
-                                                
-                                              <div class="col-12">
-                                                <div class="form-group">
-                                                  <label>Nom*</label>
-                                                  <input [(ngModel)]="reclamation.name" name="name" type="text" placeholder="Entrez le nom" required>
-                                                </div>
-                                              </div>
-                                              <div class="col-12">
-                                                <div class="form-group">
-                                                  <label>Série*</label>
-                                                  <input [(ngModel)]="reclamation.Serie" name="Serie" type="number" placeholder="Entrez la série" required>
-                                                </div>
-                                              </div>
-                                              
-                                             
-                                              <div class="col-12">
-                                                <div class="form-group">
-                                                  <label>Type de réclamation*</label>
-                                                  <select [(ngModel)]="reclamation.typereclamation" name="typereclamation" required>
-                                                    <option *ngFor="let option of TypeReclamationOptions" [value]="option">{{ option }}</option>
-                                                  </select>
-                                                </div>
-                                              </div>
-                                                <div class="col-lg-6 col-12">
-                                                    <div class="upload-input">
-                                                        <input (change)="selectedimage($event)" type="file" id="upload" name="upload">
-                                                        <label for="upload" class="text-center content">
-                                                            <span class="text">
-                                                                <span class="d-block mb-15">Drop files anywhere
-                                                                    to Upload</span>
-                                                                <span class=" mb-15 plus-icon"><i
-                                                                        class="lni lni-plus"></i></span>
-                                                                <span class="main-btn d-block btn-hover">Select
-                                                                    File</span>
-                                                                <span class="d-block">Maximum upload file size
-                                                                    10Mb</span>
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                      <label>Description*</label>
-                                                      <textarea [(ngModel)]="reclamation.description" name="description" rows="4" placeholder="Entrez la description" required></textarea>
-                                                    </div>
-                                                  </div>
-                                             
-                                                <div class="col-12">
-                                                    <div class="form-group button mb-0">
-                                                    
-                                                        <button type="submit" class="btn ">Add Reclamation</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- Start Post Ad Step Two Content -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Post Ad Tab -->
-                    </div>
-                </div>
-                <!-- End Post Ad Block Area -->
-   
+                              <!-- Nom -->
+                              <div class="col-12">
+                                  <div class="form-group">
+                                      <label>Nom*</label>
+                                      <input [(ngModel)]="reclamation.name"
+                                             name="name"
+                                             type="text"
+                                             placeholder="Entrez le nom"
+                                             required
+                                             minlength="3"
+                                             #name="ngModel"
+                                             class="form-control">
+                                      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
+                                          <small *ngIf="name.errors?.['required']">Le nom est requis.</small>
+                                          <small *ngIf="name.errors?.['minlength']">Le nom doit comporter au moins 3 caractères.</small>
+                                      </div>
+                                  </div>
+                              </div>
 
-  
+                              <!-- Série -->
+                              <div class="col-12">
+                                  <div class="form-group">
+                                      <label>Série*</label>
+                                      <input [(ngModel)]="reclamation.Serie"
+                                             name="Serie"
+                                             type="number"
+                                             placeholder="Entrez la série"
+                                             required
+                                             min="1"
+                                             #Serie="ngModel"
+                                             class="form-control">
+                                      <div *ngIf="Serie.invalid && (Serie.dirty || Serie.touched)" class="text-danger">
+                                          <small *ngIf="Serie.errors?.['required']">La série est requise.</small>
+                                          <small *ngIf="Serie.errors?.['min']">Le numéro de série doit être supérieur à 0.</small>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <!-- Type de réclamation -->
+                              <div class="col-12">
+                                  <div class="form-group">
+                                      <label>Type de réclamation*</label>
+                                      <select [(ngModel)]="reclamation.typereclamation"
+                                              name="typereclamation"
+                                              required
+                                              #typereclamation="ngModel"
+                                              class="form-control">
+                                          <option *ngFor="let option of TypeReclamationOptions" [value]="option">{{ option }}</option>
+                                      </select>
+                                      <div *ngIf="typereclamation.invalid && (typereclamation.dirty || typereclamation.touched)" class="text-danger">
+                                          <small *ngIf="typereclamation.errors?.['required']">Le type de réclamation est requis.</small>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <!-- Upload fichier -->
+                              <div class="col-lg-6 col-12">
+                                  <div class="upload-input">
+                                      <input (change)="selectedimage($event)" type="file" id="upload" name="upload" class="form-control">
+                                      <label for="upload" class="text-center content">
+                                          <span class="text">
+                                              <span class="d-block mb-15">Déposez des fichiers ou cliquez ici pour sélectionner un fichier</span>
+                                              <span class=" mb-15 plus-icon"><i class="lni lni-plus"></i></span>
+                                              <span class="main-btn d-block btn-hover">Sélectionner un fichier</span>
+                                              <span class="d-block">Taille maximale du fichier : 10Mb</span>
+                                          </span>
+                                      </label>
+                                  </div>
+                              </div>
+
+                              <!-- Description -->
+                              <div class="col-12">
+                                  <div class="form-group">
+                                      <label>Description*</label>
+                                      <textarea [(ngModel)]="reclamation.description"
+                                                name="description"
+                                                rows="4"
+                                                placeholder="Entrez la description"
+                                                required
+                                                minlength="10"
+                                                #description="ngModel"
+                                                class="form-control"></textarea>
+                                      <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger">
+                                          <small *ngIf="description.errors?.['required']">La description est requise.</small>
+                                          <small *ngIf="description.errors?.['minlength']">La description doit comporter au moins 10 caractères.</small>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <!-- Bouton de soumission -->
+                              <div class="col-12">
+                                  <div class="form-group button mb-0">
+                                      <button type="submit" class="btn" [disabled]="reclamationForm.invalid">Ajouter Réclamation</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+                  <!-- End Post Ad Step Two Content -->
+              </div>
+          </div>
+      </div>
+      <!-- End Post Ad Tab -->
+  </div>
+</div>
+<!-- End Post Ad Block Area -->

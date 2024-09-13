@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between align-items-center mb-4 px-3 py-2 bg-light rounded">
-  <h2 class="m-0">Les Questions :</h2>
+  <h2 class="m-0">Suivi Reclamation :</h2>
   <img src="https://lycee.stemariebeaucamps.fr/sites/default/files/2022-12/forum.jpeg" alt="Image de forum" class="rounded-circle img-thumbnail shadow-sm" width="120">
 </div>
 
@@ -14,16 +14,15 @@
           <h5 class="mb-0">{{ form.user.username }}</h5> <!-- Nom de l'utilisateur qui a posé la question -->
           <small class="text-muted">Posté le {{ form.Date | date:'dd MMMM yyyy' }}</small> <!-- Date de la question -->
         </div>
-        <div class="mb-3">
-          <h6 class="fw-bold">Statut actuel : {{ form.status }}</h6>
-          <!-- Menu déroulant pour changer le statut -->
-          <select class="form-select" [(ngModel)]="form.status" (change)="updateStatus(form._id, form.status)">
-            <option value="APPROVED">Approuvée</option>
-            <option value="PENDING">En attente</option>
-            <option value="REJECTED">Rejetée</option>
-            <option value="RESOLVED">Résolue</option>
-          </select>
-        </div>
+      <div *ngIf="currentuser?.isAdmin" class="mb-3">
+    <h6 class="fw-bold">Statut actuel : {{ form.status }}</h6>
+    <select class="form-select" [(ngModel)]="form.status" (change)="updateStatus(form._id, form.status)">
+      <option value="APPROVED">Approuvée</option>
+      <option value="PENDING">En attente</option>
+      <option value="REJECTED">Rejetée</option>
+      <option value="RESOLVED">Résolue</option>
+    </select>
+  </div>
         <div class="dropdown">
           <a href="#" class="text-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="mdi mdi-dots-horizontal"></i>
@@ -90,12 +89,11 @@
       </div>
 
       <!-- Ajouter un champ pour écrire une nouvelle réponse -->
-      <div class="border-top pt-3">
+      <div *ngIf="form.status !== 'RESOLVED'" class="border-top pt-3">
         <div class="d-flex">
           <!-- Champ de texte pour ajouter une réponse -->
           <input type="text" [(ngModel)]="comms.description" class="form-control form-control-sm me-2 shadow-sm" placeholder="Écrire un commentaire">
-          <!-- Bouton pour envoyer la réponse -->
-          <!-- end w-100 -->
+          <!-- Icône pour ajouter une pièce jointe -->
           <div class="icon-container">
             <div class="upload-input" onclick="document.getElementById('upload').click()">
               <i class="fas fa-paperclip icon"></i>
@@ -103,8 +101,9 @@
             </div>
             <!-- Icône pour soumettre la réponse -->
             <i class='uil uil-message icon' (click)="ajouter(form._id)"></i>
-        </div>
+          </div>
         </div> <!-- end d-flex -->
       </div> <!-- end mt-3 -->
+    </div>
 
     </div>

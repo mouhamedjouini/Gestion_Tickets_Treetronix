@@ -22,8 +22,12 @@ export class ReclamationService {
   getall():Observable<any>{
     return this.http.get<any>(this.url +'/all')
   }
-  formbyid(id:any){
+  formbyid(id:any):Observable<any>{
     return this.http.get(this.url+'/getbyid/'+id,{ headers: this.headers })
   }
+  claimbyiduser(id:any):Observable<any>{
+    return this.http.get(this.url+'/getbyiduser/'+id,{ headers: this.headers })
+  }
+  
   
 }

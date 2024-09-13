@@ -96,13 +96,15 @@ export class DetailsRecComponent implements OnInit {
       next: data => {
         this.currentuser = data;
         console.log(data);
+        // Vérification du rôle
+        this.currentuser.isAdmin = this.currentuser.Roles.includes('Admin'); 
+      console.log("aaaa"+this.currentuser.isAdmin)
       },
       error: err => {
         console.log(err);
       }
     });
   }
-
 
   getcurrentdate() {
     return new Date().toISOString(); 

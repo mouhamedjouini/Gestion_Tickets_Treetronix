@@ -128,6 +128,7 @@ router.patch('/update/:id/:status', async (req, res) => {
       // Send email to admin
       const user = await User.findById(form.user);
       const userEmail = user.email;
+      const username = user.username;
       const mailOptions = {
           from: process.env.ADMIN_EMAIL,
           to: userEmail,
@@ -138,7 +139,7 @@ router.patch('/update/:id/:status', async (req, res) => {
               Nous vous informons que le statut de votre réclamation a été mis à jour. Voici les détails de votre réclamation :
       
               - Nom de la réclamation : ${form.name}
-              - Soumis par : ${form.user}
+              - Soumis par : ${username}
               - Description : ${form.description}
               - Référence de la série : ${form.Serie}
               - Statut actuel : ${status}
