@@ -17,7 +17,17 @@ router.post('/register',async (req,res)=>{
         res.status(400).send(error.message)
     }
 })
+router.get('/all',(req, res) => {
+  User.find().then(
+  (data) => {
+    res.send(data);
+  },
+  (err) => {
+    res.send(err);
+  }
+);
 
+});
 //user login 
 router.post('/login',async (req,res)=>{
    try {

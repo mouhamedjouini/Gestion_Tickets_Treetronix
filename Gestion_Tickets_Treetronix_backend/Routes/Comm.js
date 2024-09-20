@@ -61,17 +61,38 @@ router.post('/ajouter', upload.any('piecejointe') ,async (req, res) => {
   
   async function sendEmailNotification(comm, file) {
     try {
+        
         const user = await User.findById(comm.user);
-        const userEmail = user.email;
+      
+     
         const form = await Form.findById(comm.form);
         const status = form.status;
+        const user3 = await User.findById(form.user);
+        const userEmail = user3.email;
+        const role = user3.Roles
+        let recipients = [];
 
+    
+        if (role === 'Admin') { 
+            recipients = [userEmail]; 
+            console.log('User :', userEmail, recipients);
+        } 
+      
+        else if (role === 'User') { 
+            const admins = await User.find({ Roles: 'Admin' }); 
+            if (admins.length > 0) {
+                recipients = admins.map(admin => admin.email); 
+            }
+            console.log('Admin :', userEmail, recipients);
+        }
+       
+     
         const info = await transporter.sendMail({
             from: '<mouhadje@gmail.com>',
-            to: userEmail,
+            to: recipients.join(','),
             subject: "Suivi de votre réclamation",
             html: `
-                <p>Bonjour ${user.username},</p>
+                <p>Bonjour ${user3.username},</p>
                 <p>Nous vous informons que votre réclamation est ${status}. Voici les détails :</p>
                 <ul>
                     <li><strong>Description de la suivi de réclamation :</strong> ${comm.description}</li>

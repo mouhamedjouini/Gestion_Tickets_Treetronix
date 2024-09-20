@@ -19,6 +19,7 @@ export class AuthService {
   getrole(id : any){
     return this.http.get(this.url+id)
   }
+ 
   
   logout() :void{
     localStorage.removeItem('token');

@@ -116,6 +116,7 @@ export class DetailsRecComponent implements OnInit {
     const user2 = this.storageService.getUserData();
     const id = user2._id;
     this.comms.user = id;
+    console.log()
     let formData = new FormData();
     formData.append('user', this.comms.user);
     formData.append('form', idf);
